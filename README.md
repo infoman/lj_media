@@ -7,14 +7,14 @@ No documentation or examples are available yet, but I will possibly add them in 
 ## API Stability
 
 I can not guarantee that the API will be stable until version 1.0.0. Anything can be changed
-at any moment. Use at your own risk or specify the exact version in your Gemfile.
+at any moment. Use at your own risk or specify the exact version or commit in your Gemfile.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'lj_media'
+gem 'lj_media', github: 'infoman/lj_media'
 ```
 
 And then execute:
