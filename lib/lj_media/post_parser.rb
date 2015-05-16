@@ -1,3 +1,6 @@
+require 'sax-machine'
+require 'feedjira'
+
 module LJMedia
   class PostParser
     include SAXMachine

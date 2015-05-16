@@ -1,3 +1,6 @@
+require 'feedjira'
+require 'lj_media/journal_parser'
+
 module LJMedia
   class Journal
     attr_reader :feed
