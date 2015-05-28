@@ -1,6 +1,6 @@
 require 'sax-machine'
 require 'feedjira'
-require 'lj_media/post_parser'
+require 'lj_media/post'
 
 module LJMedia
   class JournalParser
@@ -15,6 +15,6 @@ module LJMedia
     element  :link
     element  :lastBuildDate,    as: :published
 
-    elements :item,             as: :posts,     class: PostParser
+    elements :item,             as: :posts,     class: Post
   end
 end

@@ -1,23 +1,31 @@
-require 'lj_media/post_parser'
-require 'lj_media/errors'
-require 'forwardable'
+require 'sax-machine'
+require 'feedjira'
 
 module LJMedia
   class Post
-    extend Forwardable
+    include SAXMachine
+    include Feedjira::FeedEntryUtilities
 
-    attr_reader    :parser
-    def_delegators :parser, :entry_id, :published, :title, :link, :content,
-                            :tags, :access, :comments_count
+    element  :guid,             as: :entry_id
+    element  :pubDate,          as: :published
+    element  :title
+    element  :link
+    element  :description,      as: :content
+    elements :category,         as: :tags
+    element  :"lj:security",    as: :access
+    element  :"lj:poster",      as: :author_username
+    element  :"lj:posterid",    as: :author_id,      class: Integer
+    element  :"lj:reply_count", as: :comments_count, class: Integer
 
-    def initialize(parser)
-      raise LJMedia::Error::InvalidPostData unless parser.is_a? LJMedia::PostParser
-
-      @parser = parser
+    def author
+      @author ||= {
+        id:       author_id,
+        username: author_username
+      }
     end
 
     def inspect
-      "#<#{self.class} #{parser.link}>"
+      "#<#{self.class} #{link}>"
     end
   end
 end
