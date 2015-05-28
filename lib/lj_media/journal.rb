@@ -10,6 +10,10 @@ module LJMedia
     def_delegators :feed, :posts
 
     def initialize(username)
+      # TODO: check username validity
+      #
+      # TODO: support custom feed links, including local files for testing
+      # purposes
       feed_url = "http://#{username}.livejournal.com/data/rss?unfold_embed=1"
       feed_xml = Feedjira::Feed.fetch_raw feed_url
 
