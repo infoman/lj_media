@@ -8,7 +8,7 @@ exclude: !ruby/regexp /(?-mix:Gemfile*)|(?-mix:lj_media.gemspec)|(?-mix:Rakefile
 hyperlink_all: false
 line_numbers: false
 main_page: README.md
-markup: rdoc
+markup: tomdoc
 page_dir: 
 show_hash: false
 tab_width: 8

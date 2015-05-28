@@ -1,7 +1,23 @@
 module LJMedia
-  class Author
-    attr_accessor :id, :username, :type
 
+  # Public: Represents the post author
+  class Author
+
+    # Public: LiveJournal user id
+    attr_reader :id
+
+    # Public: LiveJournal username
+    attr_reader :username
+
+    # Public: Account type(+local+ or +identity+)
+    attr_reader :type
+
+    # Public: Parses post author data from user id and username
+    #
+    # userid   - [ Integer ] LiveJournal user id
+    # username - [ String ]  LiveJournal username
+    #
+    # *TODO*: parse detailed user info from his profile page
     def initialize(userid, username)
       @id       = userid
       @username = username
