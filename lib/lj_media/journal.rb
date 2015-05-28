@@ -16,6 +16,11 @@ module LJMedia
     extend Forwardable
 
     # Internal: Underlying Feedjira parser defined in LJMedia::JournalParser
+    #
+    # You should only call this if you have a reason for accessing some #
+    # of Feedjira provided functionality, and I can not guarantee that it #
+    # will not break with Feedjira updates. Only attributes listed in this #
+    # document will continue to work until the next major version of lj_media.
     attr_reader :feed
 
     private
