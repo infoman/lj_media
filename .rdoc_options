@@ -1,0 +1,17 @@
+--- !ruby/object:RDoc::Options
+encoding: UTF-8
+static_path: []
+rdoc_include:
+- .
+charset: UTF-8
+exclude: !ruby/regexp /(?-mix:Gemfile*)|(?-mix:lj_media.gemspec)|(?-mix:Rakefile)|(?-mix:vendor)|(?-mix:bin)|(?-mix:spec)|(?-mix:doc)/
+hyperlink_all: false
+line_numbers: false
+main_page: README.md
+markup: rdoc
+page_dir: 
+show_hash: false
+tab_width: 8
+title: 
+visibility: :protected
+webcvs: 
