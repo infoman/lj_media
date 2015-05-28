@@ -36,9 +36,9 @@ module LJMedia
     #
     # Public: \Journal attribute processed by LJMedia::JournalParser
     pass_methods :id, :type, :name,
-                     :title, :description,
-                     :link, :published,
-                     :posts
+                 :title, :description,
+                 :link, :published,
+                 :posts
 
     # Public: Initialize journal parser by passing a LiveJournal username.
     #
