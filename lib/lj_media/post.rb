@@ -1,5 +1,6 @@
 require 'sax-machine'
 require 'feedjira'
+require 'lj_media/author'
 
 module LJMedia
   class Post
@@ -18,10 +19,7 @@ module LJMedia
     element  :"lj:reply_count", as: :comments_count, class: Integer
 
     def author
-      @author ||= {
-        id:       author_id,
-        username: author_username
-      }
+      @author ||= Author.new(author_id, author_username)
     end
 
     def inspect
