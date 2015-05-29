@@ -13,12 +13,12 @@ module LJMedia
     ##
     # Public: \Journal ID as reported by LiveJournal
     # :attr_reader: id
-    element  :"lj:journalid",   as: :id,        class: Integer
+    element  :"lj:journalid",   as: :id, class: Integer
 
     ##
-    # Public: \Journal type. Can be +personal+ or +community+
+    # Public: \Journal type. Can be +:personal+ or +:community+
     # :attr_reader: type
-    element  :"lj:journaltype", as: :type
+    element  :"lj:journaltype", as: :type, class: Symbol
 
     ##
     # Public: \Journal name
@@ -43,7 +43,7 @@ module LJMedia
     ##
     # Public: \Journal last updated date
     # :attr_reader: published
-    element  :lastBuildDate,    as: :published
+    element  :lastBuildDate,    as: :published, class: Time
 
     ##
     # Public: Array of LJMedia::Post entries parsed from journal's feed

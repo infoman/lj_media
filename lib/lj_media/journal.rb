@@ -11,7 +11,7 @@ module LJMedia
   # Examples
   #
   #   journal = LJMedia::Journal.new('ru-chp')
-  #   journal.type #=> "community"
+  #   journal.type #=> :community
   class Journal
     extend Forwardable
 
