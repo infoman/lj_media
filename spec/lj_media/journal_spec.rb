@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe LJMedia::Journal do
   before(:context) do
-  	@comm = LJMedia::Journal.new 'ru-chp'
+    @comm = LJMedia::Journal.new 'ru-chp'
 
     # TODO: change to some user that do not renames himself so often
     #       and has some undercores in username
