@@ -1,5 +1,7 @@
 # LJMedia
 
+[![Build Status](https://travis-ci.org/infoman/lj_media.svg)](https://travis-ci.org/infoman/lj_media)
+
 This gem was created primarily to extract video embeds from Livejournal pages.
 
 No documentation or examples are available yet, but I will possibly add them in the future.
