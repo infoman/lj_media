@@ -42,7 +42,7 @@ module LJMedia
     ##
     # Public: \Post access restrictions
     # :attr_reader: access
-    element  :"lj:security",    as: :access
+    element  :"lj:security",    as: :access, class: Symbol
 
     ##
     # Public: \Post comments count
