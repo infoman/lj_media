@@ -49,7 +49,7 @@ module LJMedia
     # purposes
     def initialize(username)
       if /(\A[\-_])|([\-_]\z)|([\-_]{2,})|([^a-zA-Z0-9\-_]+)|(.{16,})|(\A\z)/ === username
-        raise LJMedia::Error::InvalidUsername
+        raise LJMedia::Error::InvalidUsername, username
       end
 
       feed_url = "http://#{username}.livejournal.com/data/rss?unfold_embed=1"
