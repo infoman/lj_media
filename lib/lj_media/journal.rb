@@ -1,6 +1,7 @@
 require 'feedjira'
 require 'lj_media/journal_parser'
 require 'lj_media/post'
+require 'lj_media/errors'
 
 module LJMedia
 
@@ -44,11 +45,13 @@ module LJMedia
     #
     # username - [ String ] LiveJournal username. Can be personal journal or a community
     #
-    # *TODO*: check username validity
-    #
     # *TODO*: support custom feed links, including local files for testing #
     # purposes
     def initialize(username)
+      if /(\A[\-_])|([\-_]\z)|([\-_]{2,})|([^a-zA-Z0-9\-_]+)|(.{16,})|(\A\z)/ === username
+        raise LJMedia::Error::InvalidUsername
+      end
+
       feed_url = "http://#{username}.livejournal.com/data/rss?unfold_embed=1"
       feed_xml = Feedjira::Feed.fetch_raw feed_url
 

@@ -9,12 +9,45 @@ describe LJMedia::Journal do
     @user = LJMedia::Journal.new 'v-glaza-smotri'
   end
 
+  describe '#new' do
+    it 'must not accept usernames starting with underscore or dash' do
+      expect { LJMedia::Journal.new '-test' }.to raise_error(LJMedia::Error::InvalidUsername)
+      expect { LJMedia::Journal.new '_test' }.to raise_error(LJMedia::Error::InvalidUsername)
+    end
+
+    it 'must not accept usernames ending with underscore or dash' do
+      expect { LJMedia::Journal.new 'test-' }.to raise_error(LJMedia::Error::InvalidUsername)
+      expect { LJMedia::Journal.new 'test_' }.to raise_error(LJMedia::Error::InvalidUsername)
+    end
+
+    it 'must not accept usernames containing 2 or more subsequent underscores/dashes' do
+      expect { LJMedia::Journal.new 'te--st'  }.to raise_error(LJMedia::Error::InvalidUsername)
+      expect { LJMedia::Journal.new 'te__st'  }.to raise_error(LJMedia::Error::InvalidUsername)
+      expect { LJMedia::Journal.new 'te-_st'  }.to raise_error(LJMedia::Error::InvalidUsername)
+      expect { LJMedia::Journal.new 'te_-st'  }.to raise_error(LJMedia::Error::InvalidUsername)
+      expect { LJMedia::Journal.new 'te---st' }.to raise_error(LJMedia::Error::InvalidUsername)
+    end
+
+    it 'must not accept usernames containing characters other than latin letters, numbers and underscores/dashes' do
+      expect { LJMedia::Journal.new 'фываtest' }.to raise_error(LJMedia::Error::InvalidUsername)
+      expect { LJMedia::Journal.new 'test!@#$' }.to raise_error(LJMedia::Error::InvalidUsername)
+      expect { LJMedia::Journal.new 'te st'    }.to raise_error(LJMedia::Error::InvalidUsername)
+      expect { LJMedia::Journal.new "test\n"   }.to raise_error(LJMedia::Error::InvalidUsername)
+    end
+
+    it 'must not accept usernames longer than 15 characters' do
+      expect { LJMedia::Journal.new 'testverylongname' }.to raise_error(LJMedia::Error::InvalidUsername)
+    end
+
+    it 'must not accept empty usernames' do
+      expect { LJMedia::Journal.new '' }.to raise_error(LJMedia::Error::InvalidUsername)
+    end
+  end
+
   describe '#feed' do
     it 'must be an instance of LJMedia::JournalParser' do
       expect(@comm.feed).to be_a(LJMedia::JournalParser)
       expect(@user.feed).to be_a(LJMedia::JournalParser)
-    end
-    it 'is likely not to be used directly' do
     end
   end
 
