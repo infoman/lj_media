@@ -1,6 +1,7 @@
 require 'sax-machine'
 require 'feedjira'
 require 'loofah'
+require 'uri'
 require 'lj_media/author'
 
 module LJMedia

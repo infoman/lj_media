@@ -1,7 +1,7 @@
 require 'sax-machine'
 require 'feedjira'
-require 'lj_media/post'
 require 'uri'
+require 'lj_media/post'
 
 module LJMedia
 
