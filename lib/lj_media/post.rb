@@ -1,5 +1,6 @@
 require 'sax-machine'
 require 'feedjira'
+require 'loofah'
 require 'lj_media/author'
 
 module LJMedia
@@ -34,7 +35,9 @@ module LJMedia
     ##
     # Public: \Full post content as provided in RSS feed
     # :attr_reader: content
-    element  :description,      as: :content
+    element  :description,      as: :content do |content|
+      Loofah.fragment(content)
+    end
 
     ##
     # Public: Array of tags attached to this post
