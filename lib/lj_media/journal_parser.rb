@@ -1,6 +1,7 @@
 require 'sax-machine'
 require 'feedjira'
 require 'lj_media/post'
+require 'uri'
 
 module LJMedia
 
@@ -38,7 +39,9 @@ module LJMedia
     ##
     # Public: Link to this journal
     # :attr_reader: link
-    element  :link
+    element  :link do |link|
+      URI(link)
+    end
 
     ##
     # Public: \Journal last updated date

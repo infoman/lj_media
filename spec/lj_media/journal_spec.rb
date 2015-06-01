@@ -94,8 +94,8 @@ describe LJMedia::Journal do
 
   describe '#link' do
     it 'must be a journal URL' do
-      expect(@comm.link).to eq('http://ru-chp.livejournal.com/')
-      expect(@user.link).to eq('http://v-glaza-smotri.livejournal.com/')
+      expect(@comm.link).to be_an(URI::HTTP).and eq(URI 'http://ru-chp.livejournal.com/')
+      expect(@user.link).to be_an(URI::HTTP).and eq(URI 'http://v-glaza-smotri.livejournal.com/')
     end
   end
 

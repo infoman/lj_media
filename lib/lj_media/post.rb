@@ -26,8 +26,10 @@ module LJMedia
 
     ##
     # Public: Link to this post
-    # :attr_reader:
-    element  :link
+    # :attr_reader: link
+    element  :link do |link|
+      URI(link)
+    end
 
     ##
     # Public: \Full post content as provided in RSS feed
