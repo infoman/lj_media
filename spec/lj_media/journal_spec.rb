@@ -117,9 +117,7 @@ describe LJMedia::Journal do
       expect(@user.posts).to be_an(Array)
 
       [@comm, @user].each do |journal|
-        journal.posts.each do |post|
-          expect(post).to be_a(LJMedia::Post)
-        end
+        expect(journal.posts).to all(be_a LJMedia::Post)
       end
     end
   end
