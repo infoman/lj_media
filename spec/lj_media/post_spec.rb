@@ -83,5 +83,9 @@ describe LJMedia::Post do
     it 'must be an instance of LJMedia::Author' do
       expect(@post.author).to be_an(LJMedia::Author)
     end
+
+    it 'is just an attribute reader and must not accept arguments' do
+      expect{ @post.author(1234) }.to raise_error(ParamContractError)
+    end
   end
 end
