@@ -42,6 +42,10 @@ describe LJMedia::Journal do
     it 'must not accept empty usernames' do
       expect { LJMedia::Journal.new '' }.to raise_error(LJMedia::Error::InvalidUsername)
     end
+
+    it 'must not accept non-string username arguments' do
+      expect { LJMedia::Journal.new 12345 }.to raise_error(ParamContractError)
+    end
   end
 
   describe '#feed' do

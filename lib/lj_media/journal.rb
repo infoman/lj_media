@@ -1,4 +1,5 @@
 require 'feedjira'
+require 'contracts'
 require 'lj_media/journal_parser'
 require 'lj_media/post'
 require 'lj_media/errors'
@@ -15,6 +16,7 @@ module LJMedia
   #   journal.type #=> :community
   class Journal
     extend Forwardable
+    include Contracts
 
     # Internal: Underlying Feedjira parser defined in LJMedia::JournalParser
     #
@@ -47,6 +49,7 @@ module LJMedia
     #
     # *TODO*: support custom feed links, including local files for testing #
     # purposes
+    Contract String => Any
     def initialize(username)
       if /(\A[\-_])|([\-_]\z)|([\-_]{2,})|([^a-zA-Z0-9\-_]+)|(.{16,})|(\A\z)/ === username
         raise LJMedia::Error::InvalidUsername, username
