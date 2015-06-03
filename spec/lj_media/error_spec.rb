@@ -8,4 +8,8 @@ describe LJMedia::Error::InvalidUsername do
       expect(error.username).to eq(bad_name)
     }
   end
+
+  it 'must not accept non-string username argument (as Journal doesn\'t too)' do
+    expect { raise LJMedia::Error::InvalidUsername, 12345 }.to raise_error(ParamContractError)
+  end
 end
