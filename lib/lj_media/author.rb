@@ -1,7 +1,10 @@
+require 'contracts'
+
 module LJMedia
 
   # Public: Represents the post author
   class Author
+    include Contracts
 
     # Public: LiveJournal user id
     attr_reader :id
@@ -18,6 +21,7 @@ module LJMedia
     # username - [ String ]  LiveJournal username
     #
     # *TODO*: parse detailed user info from his profile page
+    Contract Integer, String => Any
     def initialize(userid, username)
       @id       = userid
       @username = username
