@@ -2,6 +2,7 @@ require 'sax-machine'
 require 'feedjira'
 require 'loofah'
 require 'uri'
+require 'contracts'
 require 'lj_media/author'
 
 module LJMedia
@@ -10,6 +11,7 @@ module LJMedia
   class Post
     include SAXMachine
     include Feedjira::FeedEntryUtilities
+    include Contracts
 
     ##
     # Public: Unique post identifier from journal's RSS feed
@@ -61,6 +63,7 @@ module LJMedia
     # Public: \Post author
     #
     # Returns LJMedia::Author for post creator
+    Contract None => Exactly[LJMedia::Author]
     def author
       @author ||= Author.new(author_id, author_username)
     end
