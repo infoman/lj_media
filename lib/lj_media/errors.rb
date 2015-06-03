@@ -4,6 +4,15 @@ module LJMedia
   module Error
 
     # Raises when the provided LiveJournal username is invalid
+    #
+    # Examples
+    #
+    #   begin
+    #     username = 'fa-' + '-il' # Generated somewhere or received from user input
+    #     journal = LJMedia::Journal.new(username)
+    #   rescue LJMedia::Error::InvalidUsername => e
+    #     puts e.username #=> fa--il
+    #   end
     class InvalidUsername < RuntimeError
 
       # Exact username that caused this error
