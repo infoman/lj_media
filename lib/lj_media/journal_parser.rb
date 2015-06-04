@@ -5,52 +5,47 @@ require 'lj_media/post'
 
 module LJMedia
 
-  # Internal: Feedjira parser for LJ \Journal feed. Not intended for direct #
-  # creation or calling. Use LJMedia::Journal class for this.
+  # Feedjira parser for LJ Journal feed.
+  #
+  # @note **Warning**: This class is not intended for direct usage.
+  # @note Use {LJMedia::Journal} instead.
   class JournalParser
     include SAXMachine
     include Feedjira::FeedUtilities
 
-    ##
-    # Public: \Journal ID as reported by LiveJournal
-    # :attr_reader: id
+    # @return [Integer] journal ID as reported by LiveJournal
+    # @!attribute [r] id
     element  :"lj:journalid",   as: :id, class: Integer
 
-    ##
-    # Public: \Journal type. Can be +:personal+ or +:community+
-    # :attr_reader: type
+    # @return [Symbol] journal type.
+    # Journal type (`:personal` or `:community`)
+    # @!attribute [r] type
     element  :"lj:journaltype", as: :type, class: Symbol
 
-    ##
-    # Public: \Journal name
-    # :attr_reader: name
+    # @return [String] journal name
+    # @!attribute [r] name
     element  :"lj:journal",     as: :name
 
-    ##
-    # Public: \Journal name
-    # :attr_reader: name
+    # @return [String] journal title
+    # @!attribute [r] title
     element  :title
 
-    ##
-    # Public: \Journal description set by it's author
-    # :attr_reader: description
+    # @return [String] journal description set by it's author
+    # @!attribute [r] description
     element  :description
 
-    ##
-    # Public: Link to this journal
-    # :attr_reader: link
+    # @return [URI::HTTP] link to this journal
+    # @!attribute [r] link
     element  :link do |link|
       URI(link)
     end
 
-    ##
-    # Public: \Journal last updated date
-    # :attr_reader: published
+    # @return [Time] journal last updated time
+    # @!attribute [r] published
     element  :lastBuildDate,    as: :published, class: Time
 
-    ##
-    # Public: Array of LJMedia::Post entries parsed from journal's feed
-    # :attr_reader: posts
+    # @return [Array] array of {LJMedia::Post} entries parsed from journal's feed
+    # @!attribute [r] posts
     elements :item,             as: :posts,     class: Post
   end
 end

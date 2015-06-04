@@ -8,16 +8,20 @@ module LJMedia
   class Author
     include Contracts
 
-    # Public: LiveJournal user id
+    # @return [Integer] LiveJournal user id
     attr_reader :id
 
-    # Public: LiveJournal username
+    # @return [String] LiveJournal username
     attr_reader :username
 
-    # Public: Account type(+local+ or +identity+)
+    # @return [Symbol] account type(`:local` or `:identity`)
     attr_reader :type
 
-    Contract Integer, String => Exactly[self]
+    # Creates a new Author object or return the existing one from cache
+    #
+    # @param userid   LiveJournal user id
+    # @param username LiveJournal username
+    Contract Integer, String => LJMedia::Author
     def self.new(userid, username)
       @@cache ||= ActiveSupport::Cache::MemoryStore.new
 
@@ -30,12 +34,12 @@ module LJMedia
       end
     end
 
-    # Public: Parses post author data from user id and username
+    # Parses post author data from user id and username
     #
-    # userid   - [ Integer ] LiveJournal user id
-    # username - [ String ]  LiveJournal username
+    # @param userid   LiveJournal user id
+    # @param username LiveJournal username
     #
-    # *TODO*: parse detailed user info from his profile page
+    # **TODO**: parse detailed user info from his profile page
     Contract Integer, String => Any
     def initialize(userid, username)
       @id       = userid

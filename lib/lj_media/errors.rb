@@ -7,8 +7,7 @@ module LJMedia
 
     # Raises when the provided LiveJournal username is invalid
     #
-    # Examples
-    #
+    # @example
     #   begin
     #     username = 'fa-' + '-il' # Generated somewhere or received from user input
     #     journal = LJMedia::Journal.new(username)
@@ -18,10 +17,12 @@ module LJMedia
     class InvalidUsername < RuntimeError
       include Contracts
 
-      # Exact username that caused this error
+      # @return [String] exact username that caused this error
       attr_reader :username
 
       # Initializes the exception object with a username
+      #
+      # @param username username that caused this error
       Contract String => Any
       def initialize(username)
         @username = username

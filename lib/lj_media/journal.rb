@@ -6,42 +6,37 @@ require 'lj_media/errors'
 
 module LJMedia
 
-  # Public: This class represents an LJ journal specified by username.
+  # This class represents an LJ journal specified by username.
   #
-  # See the LJMedia::JournalParser docs for attributes description.
+  # See the {LJMedia::JournalParser} docs for attributes description.
   #
-  # Examples
-  #
+  # @example
   #   journal = LJMedia::Journal.new('ru-chp')
   #   journal.type #=> :community
   class Journal
     extend Forwardable
     include Contracts
 
-    # Internal: Underlying Feedjira parser defined in LJMedia::JournalParser
+    # @return [LJMedia::JournalParser] underlying Feedjira parser
     #
-    # You should only call this if you have a reason for accessing some #
-    # of Feedjira provided functionality, and I can not guarantee that it #
-    # will not break with Feedjira updates. Only attributes listed in this #
+    # ### Underlying Feedjira parser. Not intended for public use.
+    #
+    # You should only call this if you have a reason for accessing some
+    # of Feedjira provided functionality, and I can not guarantee that it
+    # will not break with Feedjira updates. Only attributes listed in this
     # document will continue to work until the next major version of lj_media.
+    #
+    # @api private
     attr_reader :feed
 
-    private
-    # Internal: Dummy methods to allow rdoc to correctly parse attr_reader
-    # for delegate
-    def self.pass_methods(*methods)
-      delegate methods => :feed
-    end
-    public
-
-    ##
-    # :attr_reader:
-    #
-    # Public: \Journal attribute processed by LJMedia::JournalParser
-    pass_methods :id, :type, :name,
-                 :title, :description,
-                 :link, :published,
-                 :posts
+    # @!group Journal attributes processed by LJMedia::JournalParser
+    # @!parse attr_reader :id, :type, :name, :title, :description,
+    #                     :link, :published, :posts
+    delegate [ :id, :type, :name,
+               :title, :description,
+               :link, :published,
+               :posts ] => :feed
+    # @!endgroup
 
     # Public: Initialize journal parser by passing a LiveJournal username.
     #
@@ -61,7 +56,7 @@ module LJMedia
       @feed  = Feedjira::Feed.parse_with JournalParser, feed_xml
     end
 
-    # :stopdoc:
+    # @private
     def inspect
       "#<#{self.class} #{feed.link}, @posts=#{posts.inspect}>"
     end
