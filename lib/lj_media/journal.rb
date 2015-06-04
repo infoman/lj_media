@@ -38,12 +38,13 @@ module LJMedia
                :posts ] => :feed
     # @!endgroup
 
-    # Public: Initialize journal parser by passing a LiveJournal username.
+    # Initializes journal parser by passing a LiveJournal username.
     #
-    # username - [ String ] LiveJournal username. Can be personal journal or a community
-    #
-    # *TODO*: support custom feed links, including local files for testing #
-    # purposes
+    # @param username LiveJournal username. Can be personal journal or a community
+    # @raise [LJMedia::Error::InvalidUsername] if the provided username
+    #   is not valid according to LiveJournal rules
+    # @todo support custom feed links, including local files for testing
+    #   purposes
     Contract String => Any
     def initialize(username)
       if /(\A[\-_])|([\-_]\z)|([\-_]{2,})|([^a-zA-Z0-9\-_]+)|(.{16,})|(\A\z)/ === username
