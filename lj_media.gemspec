@@ -20,6 +20,12 @@ Gem::Specification.new do |spec|
   spec.add_dependency "loofah", "~> 2.0"
   spec.add_dependency "contracts", "~> 0.9"
 
+  # Require ActiveSupport for it's caching implementation
+  #
+  # As Rails related gems do not follow semver specification,
+  # we'll allow only .patch version change, and hope it will not break
+  spec.add_dependency "activesupport", "~> 4.2.1"
+
   spec.add_development_dependency "bundler", "~> 1.8"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", '~> 3.2'

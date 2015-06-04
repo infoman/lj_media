@@ -1,4 +1,6 @@
 require 'contracts'
+require 'active_support/cache'
+require 'active_support/cache/memory_store'
 
 module LJMedia
 
@@ -14,6 +16,19 @@ module LJMedia
 
     # Public: Account type(+local+ or +identity+)
     attr_reader :type
+
+    Contract Integer, String => Exactly[self]
+    def self.new(userid, username)
+      @@cache ||= ActiveSupport::Cache::MemoryStore.new
+
+      if cached_value = @@cache.read(userid)
+        cached_value
+      else
+        cached_value = super
+        @@cache.write(userid, cached_value)
+        cached_value
+      end
+    end
 
     # Public: Parses post author data from user id and username
     #
