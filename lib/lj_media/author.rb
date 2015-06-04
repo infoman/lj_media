@@ -39,7 +39,7 @@ module LJMedia
     # @param userid   LiveJournal user id
     # @param username LiveJournal username
     #
-    # **TODO**: parse detailed user info from his profile page
+    # @todo parse detailed user info from his profile page
     Contract Integer, String => Any
     def initialize(userid, username)
       @id       = userid
