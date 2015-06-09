@@ -68,6 +68,8 @@ module LJMedia
     # @param username LiveJournal username
     #
     # @todo parse detailed user info from his profile page
+    # @todo raise some useful error if user does not exist or when LJ server
+    #       fails
     Contract Integer, Maybe[String] => LJMedia::Author
     def initialize(userid, username = nil)
       @id       = userid
