@@ -1,4 +1,6 @@
 require 'contracts'
+require 'feedjira'
+require 'loofah'
 require 'active_support/cache'
 require 'active_support/cache/memory_store'
 
@@ -21,8 +23,8 @@ module LJMedia
     #
     # @param userid   LiveJournal user id
     # @param username LiveJournal username
-    Contract Integer, String => LJMedia::Author
-    def self.new(userid, username)
+    Contract Integer, Maybe[String] => LJMedia::Author
+    def self.new(userid, username = nil)
       @@cache ||= ActiveSupport::Cache::MemoryStore.new
 
       if cached_value = @@cache.read(userid)
@@ -40,11 +42,22 @@ module LJMedia
     # @param username LiveJournal username
     #
     # @todo parse detailed user info from his profile page
-    Contract Integer, String => Any
-    def initialize(userid, username)
+    Contract Integer, Maybe[String] => LJMedia::Author
+    def initialize(userid, username = nil)
       @id       = userid
-      @username = username
+      @username = (username || profile.at_css('span.ljuser').attribute('lj:user').value)
       @type     = (/\Aext_\d+\z/ === username) ? :identity : :local
+
+      self
+    end
+
+    private
+    def profile
+      if @profile.nil?
+        profile_url = "http://www.livejournal.com/profile?userid=#{@userid}"
+        @profile    = Loofah.document(Feedjira::Feed.fetch_raw profile_url)
+      end
+      @profile
     end
   end
 end
