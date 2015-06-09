@@ -1,12 +1,38 @@
 require 'contracts'
 require 'feedjira'
-require 'loofah'
+require 'nokogiri'
 require 'active_support/cache'
 require 'active_support/cache/memory_store'
 
+# Additional methods for Nokogiri::HTML::Document to allow it to be cached
+# properly. Do not use them directly. Refer to Nokogiri documentation
+# if you need direct parser access.
+# @api private
+class Nokogiri::HTML::Document
+  include Contracts
+
+  # Dumps profile page document to html to save it in the cache
+  # @param level internal value passed from Marshal
+  # @return string prepared for caching
+  # @api private
+  Contract Integer => String
+  def _dump(level)
+    self.to_html
+  end
+
+  # Restores parser object from cached page to not load it again
+  # @param html cached HTML content
+  # @return restored document parser
+  # @api private
+  Contract String => Nokogiri::HTML::Document
+  def self._load(html)
+    Nokogiri::HTML(html)
+  end
+end
+
 module LJMedia
 
-  # Public: Represents the post author
+  # Represents the post author
   class Author
     include Contracts
 
@@ -51,11 +77,16 @@ module LJMedia
       self
     end
 
+    # @private
+    def inspect
+      "#<#{self.class} @id=#{id}, @username=#{username.inspect}, @type=#{type.inspect}>"
+    end
+
     private
     def profile
       if @profile.nil?
-        profile_url = "http://www.livejournal.com/profile?userid=#{@userid}"
-        @profile    = Loofah.document(Feedjira::Feed.fetch_raw profile_url)
+        profile_url = "http://www.livejournal.com/profile?userid=#{@id}"
+        @profile    = Nokogiri::HTML(Feedjira::Feed.fetch_raw profile_url)
       end
       @profile
     end

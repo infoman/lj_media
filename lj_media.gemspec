@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "feedjira", "~> 1.6"
   spec.add_dependency "loofah", "~> 2.0"
+  spec.add_dependency "nokogiri", "~> 1.6"
   spec.add_dependency "contracts", "~> 0.9"
 
   # Require ActiveSupport for it's caching implementation
