@@ -80,11 +80,13 @@ module LJMedia
     end
 
     # @private
+    Contract None => String
     def inspect
       "#<#{self.class} @id=#{id}, @username=#{username.inspect}, @type=#{type.inspect}>"
     end
 
     private
+    Contract None => Nokogiri::HTML::Document
     def profile
       if @profile.nil?
         profile_url = "http://www.livejournal.com/profile?userid=#{@id}"

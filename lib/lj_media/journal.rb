@@ -58,6 +58,7 @@ module LJMedia
     end
 
     # @private
+    Contract None => String
     def inspect
       "#<#{self.class} #{feed.link}, @posts=#{posts.inspect}>"
     end
