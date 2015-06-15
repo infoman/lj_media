@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe LJMedia::Author do
+  before(:context) do
+    @local    = LJMedia::Author.new(15140396)
+    @external = LJMedia::Author.new(33479568)
+  end
+
   describe '#new' do
     it 'must accept initialization by user id only and get username from profile page' do
       a = nil
@@ -24,6 +29,16 @@ describe LJMedia::Author do
       expect(b = LJMedia::Author.new(73993180, 'wrong_username')).to be_an LJMedia::Author
       expect(b.username).to_not eq('wrong_username')
       expect(b.username).to eq(a.username)
+    end
+  end
+
+  describe '#type' do
+    it 'must be :local for LiveJournal accounts' do
+      expect(@local.type).to be(:local)
+    end
+
+    it 'must be :identity for external accounts' do
+      expect(@external.type).to be(:identity)
     end
   end
 end

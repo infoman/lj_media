@@ -74,7 +74,7 @@ module LJMedia
     def initialize(userid, username = nil)
       @id       = userid
       @username = (username || profile.at_css('span.ljuser').attribute('lj:user').value)
-      @type     = (/\Aext_\d+\z/ === username) ? :identity : :local
+      @type     = (/\Aext_\d+\z/ === @username) ? :identity : :local
 
       self
     end
