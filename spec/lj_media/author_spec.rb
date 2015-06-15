@@ -41,4 +41,35 @@ describe LJMedia::Author do
       expect(@external.type).to be(:identity)
     end
   end
+
+  describe '#username' do
+    it 'must have a String value' do
+      expect(@local.username).to    be_a(String)
+      expect(@external.username).to be_a(String)
+    end
+  end
+
+  describe '#profile_name' do
+    it 'must have a String value' do
+      expect(@local.profile_name).to    be_a(String)
+      expect(@external.profile_name).to be_a(String)
+    end
+  end
+
+  describe '#profile_url' do
+    it 'must have a value of URI::Generic or its subclasses' do
+      expect(@local.profile_url).to    be_a(URI::Generic)
+      expect(@external.profile_url).to be_a(URI::Generic)
+    end
+
+    it 'must be a correct link to the user\'s page' do
+      expect(@local.profile_url.scheme).to be_a(String)
+      expect(@local.profile_url.host).to   be_a(String)
+      expect(@local.profile_url.host).to   end_with('.livejournal.com')
+
+      expect(@external.profile_url.scheme).to   be_a(String)
+      expect(@external.profile_url.host).to     be_a(String)
+      expect(@external.profile_url.host).not_to end_with('.livejournal.com')
+    end
+  end
 end

@@ -1,6 +1,7 @@
 require 'contracts'
 require 'feedjira'
 require 'nokogiri'
+require 'uri'
 require 'active_support/cache'
 require 'active_support/cache/memory_store'
 
@@ -77,6 +78,28 @@ module LJMedia
       @type     = (/\Aext_\d+\z/ === @username) ? :identity : :local
 
       self
+    end
+
+    # Returns username specified by service which this author uses to login
+    # to LiveJournal.
+    #
+    # It can be just a copy of {#username} attribute in case
+    # of local LiveJournal account, Twitter username, full name for VK
+    # or Google+ etc.
+    # @return username specified by service
+    Contract None => String
+    def profile_name
+      @profile_name ||= profile.at_css('a.i-ljuser-username b').text
+    end
+
+    # Returns author profile url specified by service.
+    #
+    # Can be LiveJournal blog URL or the blog/account URL on the external
+    # service.
+    # @return user's URL specified by service
+    Contract None => URI::Generic
+    def profile_url
+      @profile_url ||= URI(profile.at_css('a.i-ljuser-username').attribute('href').value)
     end
 
     # @private
