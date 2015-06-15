@@ -52,7 +52,7 @@ module LJMedia
       end
 
       feed_url = "http://#{username}.livejournal.com/data/rss?unfold_embed=1"
-      feed_xml = Feedjira::Feed.fetch_raw feed_url
+      feed_xml = LJMedia::fetch feed_url
 
       @feed  = Feedjira::Feed.parse_with JournalParser, feed_xml
     end

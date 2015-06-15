@@ -1,5 +1,5 @@
 require 'contracts'
-require 'feedjira'
+require 'faraday'
 require 'nokogiri'
 require 'uri'
 require 'active_support/cache'
@@ -113,7 +113,7 @@ module LJMedia
     def profile
       if @profile.nil?
         profile_url = "http://www.livejournal.com/profile?userid=#{@id}"
-        @profile    = Nokogiri::HTML(Feedjira::Feed.fetch_raw profile_url)
+        @profile    = Nokogiri::HTML(LJMedia::fetch profile_url)
       end
       @profile
     end

@@ -16,7 +16,8 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "feedjira", "~> 1.6"
+  spec.add_dependency "feedjira", "~> 2.0"
+  spec.add_dependency "faraday", "~> 0.9.1"
   spec.add_dependency "loofah", "~> 2.0"
   spec.add_dependency "nokogiri", "~> 1.6"
   spec.add_dependency "contracts", "~> 0.9"
