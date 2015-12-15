@@ -8,8 +8,6 @@ module LJMedia
 
   # This class represents an LJ journal specified by username.
   #
-  # See the {LJMedia::JournalParser} docs for attributes description.
-  #
   # @example
   #   journal = LJMedia::Journal.new('ru-chp')
   #   journal.type #=> :community
@@ -30,8 +28,32 @@ module LJMedia
     attr_reader :feed
 
     # @!group Journal attributes processed by LJMedia::JournalParser
-    # @!parse attr_reader :id, :type, :name, :title, :description,
-    #                     :link, :published, :posts
+
+    # @return [Integer] journal ID as reported by LiveJournal
+    # @!attribute [r] id
+
+    # @return [Symbol] journal type.
+    # Journal type (`:personal` or `:community`)
+    # @!attribute [r] type
+
+    # @return [String] journal name
+    # @!attribute [r] name
+
+    # @return [String] journal title
+    # @!attribute [r] title
+
+    # @return [String] journal description set by it's author
+    # @!attribute [r] description
+
+    # @return [URI::HTTP] link to this journal
+    # @!attribute [r] link
+
+    # @return [Time] journal last updated time
+    # @!attribute [r] published
+
+    # @return [Array] array of {LJMedia::Post} entries parsed from journal's feed
+    # @!attribute [r] posts
+
     delegate [ :id, :type, :name,
                :title, :description,
                :link, :published,
